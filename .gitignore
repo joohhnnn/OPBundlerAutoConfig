@@ -1,0 +1,31 @@
+# Compiled files
+*.o
+*.so
+*.dll
+*.class
+*.exe
+
+# Logs and databases
+*.log
+*.db
+*.sqlite3
+
+# Package management directories
+node_modules/
+vendor/
+
+# Environment variables
+.env
+
+# IDE and editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating System generated files
+.DS_Store
+Thumbs.db
+
+# Ignore build folder
+build/
