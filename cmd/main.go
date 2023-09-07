@@ -10,7 +10,7 @@ import (
 
 // Function to modify Bundler configuration
 func modifyBundlerConfig(bundlerPath string) error {
-	cmd := exec.Command("bash ./scripts/modify_bundler.sh", bundlerPath)
+	cmd := exec.Command("./scripts/modify_bundler.sh", bundlerPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
@@ -21,7 +21,7 @@ func modifyBundlerConfig(bundlerPath string) error {
 
 // Function to modify Optimism configuration
 func modifyOptimismConfig(optimismPath string) error {
-	cmd := exec.Command("bash ./scripts/modify_op_devnet.sh", optimismPath)
+	cmd := exec.Command("./scripts/modify_op_devnet.sh", optimismPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {

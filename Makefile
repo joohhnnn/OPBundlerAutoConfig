@@ -15,6 +15,7 @@ build:
 install: build
 	@echo "Installing..."
 	sudo mv $(BUILD_DIR)/$(BINARY_NAME) /usr/local/bin
+	chmod +x ./scripts/*.sh
 
 # Clean up
 clean:
