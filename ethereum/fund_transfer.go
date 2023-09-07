@@ -32,7 +32,7 @@ func SendTransaction() {
 	if err != nil {
 		log.Fatalf("Failed to get initial balance: %v", err)
 	}
-	initialBalanceStr = strings.Trim(initialBalanceStr, "\"")
+	initialBalanceStr = strings.ReplaceAll(initialBalanceStr, "\"", "")
 
 	// Convert hex string to big.Int
 	initialBalance, success := new(big.Int).SetString(initialBalanceStr[2:], 16)
@@ -64,7 +64,7 @@ func SendTransaction() {
 	if err != nil {
 		log.Fatalf("Failed to get final balance: %v", err)
 	}
-	finalBalanceStr = strings.Trim(finalBalanceStr, "\"")
+	finalBalanceStr = strings.ReplaceAll(finalBalanceStr, "\"", "")
 
 	// Convert hex string to big.Int
 	finalBalance, success := new(big.Int).SetString(finalBalanceStr[2:], 16)
