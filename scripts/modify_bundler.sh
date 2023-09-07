@@ -21,8 +21,8 @@ if [ ! -f "$DEPLOY_FILE" ] || [ ! -f "$HARDHAT_CONFIG" ] || [ ! -f "$LOCAL_CONFI
 fi
 
 # Modify 2-deploy-entrypoint.ts
-if ! grep -q 'net.chainId !== 1337 && net.chainId !== 31337 && net.chainId !== 901' $DEPLOY_FILE; then
-    sed -i 's/net.chainId !== 1337 && net.chainId !== 31337/net.chainId !== 1337 && net.chainId !== 31337 && net.chainId !== 901/g' $DEPLOY_FILE
+if ! grep -q 'if(net.chainId !== 901 && net' $DEPLOY_FILE; then
+    sed -i 's/if (net/if(net.chainId !== 901 \&\& net/g' $DEPLOY_FILE
 fi
 
 # Modify hardhat.config.ts

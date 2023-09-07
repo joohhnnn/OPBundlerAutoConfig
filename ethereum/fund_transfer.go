@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/big"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/rpc"
 )
@@ -58,8 +59,31 @@ func SendTransaction() {
 		log.Fatalf("Failed to send transaction: %v", err)
 	}
 
-	// (Simplified by just querying the balance)
-	
+	// Get the transaction receipt to confirm it was successful
+	var receipt map[string]interface{}
+	for {
+		err = client.Call(&receipt, "eth_getTransactionReceipt", txHash)
+		if err != nil {
+			log.Fatalf("Failed to get transaction receipt: %v", err)
+		}
+
+		// Check if the receipt is nil, which means the transaction is not yet confirmed
+		if receipt != nil {
+			break
+		}
+
+		// Wait for a short period before trying again
+		time.Sleep(1 * time.Second)
+	}
+
+	// Check the status of the transaction
+	status := receipt["status"].(string)
+	if status == "0x1" {
+		log.Println("Transaction was successful")
+	} else {
+		log.Println("Transaction failed")
+	}
+
 	// Get final balance as a JSON RawMessage, then convert it to a string
 	var finalBalanceRaw json.RawMessage
 	err = client.Call(&finalBalanceRaw, "eth_getBalance", toAddress, "latest")
