@@ -4,6 +4,12 @@
 
 OPBundlerAutoConfig is a Go-based utility tool designed to automate and simplify the configuration of Ethereum Bundler and Optimism's devnet. This project was inspired by the challenges developers face when setting up a local Ethereum bundler with Optimism's devnet, as discussed in this [GitHub issue](https://github.com/ethereum-optimism/optimism/issues/6450#issuecomment-1705973174).
 
+- **opdevnet** [guide 1](https://community.optimism.io/docs/developers/build/dev-node/#do-i-need-this)[guide 2](https://github.com/ethereum-optimism/optimism/issues/6976#issuecomment-1690628412)
+This repository contains the essential configurations and settings to facilitate the optimal functioning of the opdevnet. It is designed to be a robust solution for users looking to streamline their operations with opdevnet. Before you proceed with this repository, ensure to explore and understand the functionalities it offers to make the most out of it.
+
+- **bundler** [repo](https://github.com/eth-infinitism/bundler)
+The bundler repository is your go-to destination for all bundler-related solutions. It houses a rich set of features and functionalities that are integral in working with the bundler effectively. Dive into this repository to explore a range of tools and resources that can enhance your bundler experience.
+
 ## Features
 
 - **Automated Setup**: One-click setup for both Bundler and Optimism devnet.
@@ -49,7 +55,7 @@ Replace `/path/to/bundler/config.json` and `/path/to/optimism/config.json` with 
 ## Troubleshooting
 
 - For port-related issues, check the port configurations in the Bundler and devnet settings.
-- Before you dive into using this repository, make sure that both the opdevnet and bundler are set up and running smoothly. You can find guidance on how to run opdevnet here[https://github.com/ethereum-optimism/optimism/issues/6976#issuecomment-1690628412]. After you've got them up and running for the first time, remember to shut them down to free up the 8545, 9545, and 3000 ports.
+- Before you dive into using this repository, make sure that both the opdevnet and bundler are set up and running smoothly. After you've got them up and running for the first time, remember to shut them down to free up the 8545, 9545, and 3000 ports.
 
 ## Contributing
 
