@@ -60,15 +60,23 @@ func main() {
 
 	fmt.Println("Configuration successfully modified.")
 
-	ethtransaction.SendTransaction()
-
-	// Execute the start_services.sh script
-	cmd := exec.Command("./scripts/start_services.sh", optimismPath, bundlerPath)
+	// Execute the start_OPdevnet.sh script
+	cmd := exec.Command("./scripts/start_OPdevnet.sh", optimismPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Failed to start services: %s\n", err)
+		fmt.Printf("Failed to start OPdevnet: %s\n", err)
 		os.Exit(1)
 	}
 
+	ethtransaction.SendTransaction()
+
+	// Execute the start_bundler.sh script
+	cmd = exec.Command("./scripts/start_bundlers.sh", bundlerPath)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("Failed to start bundler: %s\n", err)
+		os.Exit(1)
+	}
 }
