@@ -1,9 +1,8 @@
-package ethtransaction  
+package ethtransaction
 
 import (
 	"log"
 	"math/big"
-	
 	"github.com/ethereum/go-ethereum/rpc"
 )
 
@@ -25,10 +24,18 @@ func SendTransaction() {
 	log.Printf("Signer address: %s", signerAddress)
 
 	toAddress := "0x3fab184622dc19b6109349b94811493bf2a45362"
-	var initialBalance big.Int
-	err = client.Call(&initialBalance, "eth_getBalance", toAddress, "latest")
+	
+	// Get initial balance as a string
+	var initialBalanceStr string
+	err = client.Call(&initialBalanceStr, "eth_getBalance", toAddress, "latest")
 	if err != nil {
 		log.Fatalf("Failed to get initial balance: %v", err)
+	}
+
+	// Convert hex string to big.Int
+	initialBalance, success := new(big.Int).SetString(initialBalanceStr[2:], 16)
+	if !success {
+		log.Fatalf("Failed to parse initial balance: %v", err)
 	}
 	log.Printf("Initial balance of toAddress: %s", initialBalance.String())
 
@@ -48,10 +55,18 @@ func SendTransaction() {
 
 	// Wait for the transaction to be mined and get the final balance
 	// (Simplified by just querying the balance)
-	var finalBalance big.Int
-	err = client.Call(&finalBalance, "eth_getBalance", toAddress, "latest")
+	
+	// Get final balance as a string
+	var finalBalanceStr string
+	err = client.Call(&finalBalanceStr, "eth_getBalance", toAddress, "latest")
 	if err != nil {
 		log.Fatalf("Failed to get final balance: %v", err)
+	}
+
+	// Convert hex string to big.Int
+	finalBalance, success := new(big.Int).SetString(finalBalanceStr[2:], 16)
+	if !success {
+		log.Fatalf("Failed to parse final balance: %v", err)
 	}
 	log.Printf("Final balance of toAddress: %s", finalBalance.String())
 }

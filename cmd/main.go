@@ -8,15 +8,25 @@ import (
 	"OPBundlerAutoConfig/ethereum"
 )
 
-// Dummy function to modify Bundler configuration
+// Function to modify Bundler configuration
 func modifyBundlerConfig(bundlerPath string) error {
-	// Implementation details
+	cmd := exec.Command("./scripts/modify_bundler.shh", bundlerPath)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("failed to execute script: %w", err)
+	}
 	return nil
 }
 
-// Dummy function to modify Optimism configuration
+// Function to modify Optimism configuration
 func modifyOptimismConfig(optimismPath string) error {
-	// Implementation details
+	cmd := exec.Command("./scripts/modify_op_devnet.sh", optimismPath)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("failed to execute script: %w", err)
+	}
 	return nil
 }
 
