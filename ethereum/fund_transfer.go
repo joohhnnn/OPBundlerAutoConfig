@@ -1,9 +1,11 @@
 package ethtransaction
 
 import (
+	"encoding/json"
 	"log"
 	"math/big"
-	"strings" 
+	"strings"
+
 	"github.com/ethereum/go-ethereum/rpc"
 )
 
@@ -26,13 +28,14 @@ func SendTransaction() {
 
 	toAddress := "0x3fab184622dc19b6109349b94811493bf2a45362"
 	
-	// Get initial balance as a string and remove extra quotes
-	var initialBalanceStr string
-	err = client.Call(&initialBalanceStr, "eth_getBalance", toAddress, "latest")
+	// Get initial balance as a JSON RawMessage, then convert it to a string
+	var initialBalanceRaw json.RawMessage
+	err = client.Call(&initialBalanceRaw, "eth_getBalance", toAddress, "latest")
 	if err != nil {
 		log.Fatalf("Failed to get initial balance: %v", err)
 	}
-	initialBalanceStr = strings.ReplaceAll(initialBalanceStr, "\"", "")
+	initialBalanceStr := string(initialBalanceRaw)
+	initialBalanceStr = strings.Trim(initialBalanceStr, "\"")
 
 	// Convert hex string to big.Int
 	initialBalance, success := new(big.Int).SetString(initialBalanceStr[2:], 16)
@@ -50,21 +53,21 @@ func SendTransaction() {
 		"gasPrice": "0x4A817C800",       // 20 Gwei
 	}
 	var txHash string
-	err = client.Call(&txHash, "personal_sendTransaction", txData, "your_passphrase")
+	err = client.Call(&txHash, "personal_sendTransaction", txData)
 	if err != nil {
 		log.Fatalf("Failed to send transaction: %v", err)
 	}
 
-	// Wait for the transaction to be mined and get the final balance
 	// (Simplified by just querying the balance)
 	
-	// Get final balance as a string and remove extra quotes
-	var finalBalanceStr string
-	err = client.Call(&finalBalanceStr, "eth_getBalance", toAddress, "latest")
+	// Get final balance as a JSON RawMessage, then convert it to a string
+	var finalBalanceRaw json.RawMessage
+	err = client.Call(&finalBalanceRaw, "eth_getBalance", toAddress, "latest")
 	if err != nil {
 		log.Fatalf("Failed to get final balance: %v", err)
 	}
-	finalBalanceStr = strings.ReplaceAll(finalBalanceStr, "\"", "")
+	finalBalanceStr := string(finalBalanceRaw)
+	finalBalanceStr = strings.Trim(finalBalanceStr, "\"")
 
 	// Convert hex string to big.Int
 	finalBalance, success := new(big.Int).SetString(finalBalanceStr[2:], 16)
@@ -72,4 +75,4 @@ func SendTransaction() {
 		log.Fatalf("Failed to parse final balance: %v", err)
 	}
 	log.Printf("Final balance of toAddress: %s", finalBalance.String())
-}
+	}
