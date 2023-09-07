@@ -19,6 +19,6 @@ if [ ! -f "$TARGET_FILE" ]; then
 fi
 
 # Replace the target file with the entrypoint-l2.sh file from the overrides directory
-cp overrides/entrypoint-l2.sh $TARGET_FILE
+cp ./overrides/entrypoint-l2.sh $TARGET_FILE
 
 echo "Successfully replaced entrypoint-l2.sh."

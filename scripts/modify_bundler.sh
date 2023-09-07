@@ -21,12 +21,14 @@ if [ ! -f "$DEPLOY_FILE" ] || [ ! -f "$HARDHAT_CONFIG" ] || [ ! -f "$LOCAL_CONFI
 fi
 
 # Modify 2-deploy-entrypoint.ts
-sed -i 's/net.chainId !== 1337 && net.chainId !== 31337/net.chainId !== 1337 && net.chainId !== 31337 && net.chainId !== 901/g' $DEPLOY_FILE
+if ! grep -q '&& net.chainId !== 901' $DEPLOY_FILE; then
+  sed -i 's/net.chainId !== 1337 && net.chainId !== 31337/net.chainId !== 1337 && net.chainId !== 31337 && net.chainId !== 901/g' $DEPLOY_FILE
+fi
 
 # Modify hardhat.config.ts
-sed -i 's/url: '\''http:\/\/localhost:8545'\''/url: '\''http:\/\/localhost:9545'\''/g' $HARDHAT_CONFIG
+sed -i 's/8545/9545/g' $HARDHAT_CONFIG
 
 # Modify bundler.config.json
-sed -i 's/"network": "http:\/\/127.0.0.1:8545"/"network": "http:\/\/127.0.0.1:9545"/g' $LOCAL_CONFIG
+sed -i 's/8545/9545/g' $LOCAL_CONFIG
 
 echo "Successfully modified Bundler-related files."

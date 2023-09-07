@@ -45,7 +45,7 @@ func SendTransaction() {
 	log.Printf("Initial balance of toAddress: %s", initialBalance.String())
 
 	// Send Transaction
-	txData := map[string]string{
+	txData := map[string]interface{}{
 		"from":     signerAddress,
 		"to":       toAddress,
 		"value":    "0xDE0B6B3A7640000",  // 1 ETH in Wei
@@ -53,7 +53,7 @@ func SendTransaction() {
 		"gasPrice": "0x4A817C800",       // 20 Gwei
 	}
 	var txHash string
-	err = client.Call(&txHash, "personal_sendTransaction", txData)
+	err = client.Call(&txHash, "eth_sendTransaction", txData)
 	if err != nil {
 		log.Fatalf("Failed to send transaction: %v", err)
 	}
@@ -75,4 +75,4 @@ func SendTransaction() {
 		log.Fatalf("Failed to parse final balance: %v", err)
 	}
 	log.Printf("Final balance of toAddress: %s", finalBalance.String())
-	}
+}
