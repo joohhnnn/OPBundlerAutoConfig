@@ -72,7 +72,7 @@ func main() {
 	ethtransaction.SendTransaction()
 
 	// Execute the start_bundler.sh script
-	cmd = exec.Command("./scripts/start_bundlers.sh", bundlerPath)
+	cmd = exec.Command("./scripts/start_bundler.sh", bundlerPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
