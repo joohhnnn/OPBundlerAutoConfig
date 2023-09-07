@@ -12,4 +12,4 @@ BUNDLER_PATH=$1
 # Navigate to the bundler directory and run the yarn commands
 cd "$BUNDLER_PATH" || { echo "Failed to navigate to bundler directory"; exit 1; }
 yarn hardhat-deploy --network localhost
-yarn run bundler > bundler.log 2>&1 &
+yarn run bundler
