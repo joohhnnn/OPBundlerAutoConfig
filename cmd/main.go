@@ -10,7 +10,7 @@ import (
 
 // Function to modify Bundler configuration
 func modifyBundlerConfig(bundlerPath string) error {
-	cmd := exec.Command("./scripts/modify_bundler.shh", bundlerPath)
+	cmd := exec.Command("./scripts/modify_bundler.sh", bundlerPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
