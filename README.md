@@ -48,8 +48,8 @@ Replace `/path/to/bundler/config.json` and `/path/to/optimism/config.json` with 
 
 ## Troubleshooting
 
-- If you encounter an "Insufficient funds" error, make sure you've properly funded the necessary addresses.
 - For port-related issues, check the port configurations in the Bundler and devnet settings.
+- Before you dive into using this repository, make sure that both the opdevnet and bundler are set up and running smoothly. You can find guidance on how to run opdevnet here[https://github.com/ethereum-optimism/optimism/issues/6976#issuecomment-1690628412]. After you've got them up and running for the first time, remember to shut them down to free up the 8545, 9545, and 3000 ports.
 
 ## Contributing
 
