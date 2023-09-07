@@ -3,6 +3,7 @@ package ethtransaction
 import (
 	"log"
 	"math/big"
+	"strings" 
 	"github.com/ethereum/go-ethereum/rpc"
 )
 
@@ -25,12 +26,13 @@ func SendTransaction() {
 
 	toAddress := "0x3fab184622dc19b6109349b94811493bf2a45362"
 	
-	// Get initial balance as a string
+	// Get initial balance as a string and remove extra quotes
 	var initialBalanceStr string
 	err = client.Call(&initialBalanceStr, "eth_getBalance", toAddress, "latest")
 	if err != nil {
 		log.Fatalf("Failed to get initial balance: %v", err)
 	}
+	initialBalanceStr = strings.Trim(initialBalanceStr, "\"")
 
 	// Convert hex string to big.Int
 	initialBalance, success := new(big.Int).SetString(initialBalanceStr[2:], 16)
@@ -56,12 +58,13 @@ func SendTransaction() {
 	// Wait for the transaction to be mined and get the final balance
 	// (Simplified by just querying the balance)
 	
-	// Get final balance as a string
+	// Get final balance as a string and remove extra quotes
 	var finalBalanceStr string
 	err = client.Call(&finalBalanceStr, "eth_getBalance", toAddress, "latest")
 	if err != nil {
 		log.Fatalf("Failed to get final balance: %v", err)
 	}
+	finalBalanceStr = strings.Trim(finalBalanceStr, "\"")
 
 	// Convert hex string to big.Int
 	finalBalance, success := new(big.Int).SetString(finalBalanceStr[2:], 16)
